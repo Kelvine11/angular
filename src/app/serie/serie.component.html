@@ -1,0 +1,11 @@
+<section>
+
+    @for (serie of series; track serie) {
+    <p>{{serie}}
+    <button (click)="remove(serie)">Supprimer</button>
+</p>
+    } @empty {
+    <p>Aucune série</p>
+    }
+
+</section>
