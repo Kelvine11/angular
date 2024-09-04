@@ -1,0 +1,7 @@
+@for (livre of livres; track $index) {
+<p> {{livre.isRead | read}} Titre :
+    <span [class]="livre.isRead? souligner:rien"> {{livre.title}}</span>
+    - Auteur : {{livre.author}}
+    <button (click)="changeIsRead($index)">{{livre.isRead?"Marquer comme non lu":"Marquer comme lu"}}</button>
+</p>
+}
