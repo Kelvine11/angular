@@ -1,0 +1,69 @@
+<section>
+    <form [formGroup]="pokemonForm" (ngSubmit)="savePokemon()">
+        <p>
+            <label for="nom">Nom </label>
+            <input id="nom" formControlName="nom">
+            @if (nom.hasError('required') && !nom.untouched) {
+            <small class="error">Veuillez entrer un nom</small>
+            }
+        </p>
+        <p>
+            <label for="description">Description </label>
+            <input type="texte" id="description" formControlName="description" />
+            @if (description.hasError('required') && !description.untouched) {
+            <small class="error">Veuillez entrer une description</small>
+            }
+        </p>
+
+        <p>
+            <label for="type">Type </label>
+            <select id="type" formControlName="types">
+                @for(type of types; track type){
+                <option>{{type}}</option>
+                }
+            </select>
+        </p>
+
+        <fieldset formGroupName="zone">
+            <legend>Zone</legend>
+            <p>
+                <label for="zoneNom">Nom </label>
+                <input id="zoneNom" formControlName="zoneNom">
+            </p>
+            <p>
+                <label for="zoneRegion">Région </label>
+                <input id="zoneRegion" formControlName="zoneRegion">
+            </p>
+        </fieldset>
+        <fieldset formArrayName="attaques">
+            <legend>Attaques </legend>
+            @for (attaque of attaques.controls; track attaque) {
+            <fieldset formGroupName="{{$index}}">
+                <legend>Attaque {{$index +1}}</legend>
+                <div>
+                    <p>
+                        <label [for]="'attaqueNom' + $index">Nom </label>
+                        <input [id]="'attaqueNom' + $index" formControlName="attaqueNom">
+                    </p>
+                    <p>
+                        <label [for]="'attaqueDescription' + $index">Description </label>
+                        <input [id]="'attaqueDescription' + $index" formControlName="attaqueDescription">
+                    </p>
+                    <p>
+                        <label [for]="'degats' + $index">Dégats </label>
+                        <input [id]="'degats' + $index" formControlName="degats">
+                    </p>
+                </div>
+            </fieldset>
+            }
+            <button (click)="addAttaque()" type="button">
+                Ajouter une attaque
+            </button>
+
+        </fieldset>
+        <p>
+            <button>Save</button>
+        </p>
+    </form>
+
+</section>

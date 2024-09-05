@@ -40,7 +40,7 @@ export class LibrairieComponent {
     isRead: false
   }
 
-  submit(): void{
+  submit(): void {
 
     const livre1 = {
       title: this.livre.title,
@@ -49,10 +49,6 @@ export class LibrairieComponent {
     }
     this.livres.push(livre1);
     this.livre.title = "";
-    this.livre.author= "";
-
-
+    this.livre.author = "";
   }
-  
-
 }
