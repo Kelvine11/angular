@@ -1,0 +1,12 @@
+<div>
+    <h1>Nom : {{pokemon.name}}</h1>
+    <p>Description : {{pokemon.description}}</p>
+    <p>Type : {{pokemon.type}}</p>
+    <p>Nom de la zone : {{pokemon.zone.name}}</p>
+    <p>Description de la zone : {{pokemon.zone.description}}</p>
+
+    @for (attack of pokemon.attacks; track attack) {
+    <p>Nom de l'attaqe {{$index +1 }} : {{attack.name}}</p>
+    <p>Dégats de l'attaque {{$index +1 }} : {{attack.power}}</p>
+    }
+</div>

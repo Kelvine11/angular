@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
 import { FormArray, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Pokemon } from '../utils/types/pokemon.type';
+import { PokemonCardComponent } from '../pokemon-card/pokemon-card.component';
 
 @Component({
   selector: 'app-pokemon',
   standalone: true,
   imports: [
+    PokemonCardComponent,
     FormsModule,
     ReactiveFormsModule
   ],
@@ -13,25 +16,25 @@ import { FormArray, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Va
 })
 export class PokemonComponent {
 
+  pokemons: Pokemon[] = [];
   types = ['eau', 'feu', 'vent'];
 
   pokemonForm = new FormGroup({
-    nom: new FormControl('', [Validators.required]),
+    name: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.required]),
-    types: new FormControl(this.types),
-    attaques: new FormArray([new FormGroup({
-      attaqueNom: new FormControl('', [Validators.required]),
-      attaqueDescription: new FormControl('', [Validators.required]),
-      degats: new FormControl(5, [Validators.min(1), Validators.max(10)])
+    type: new FormControl(),
+    attacks: new FormArray([new FormGroup({
+      name: new FormControl('', [Validators.required]),
+      power: new FormControl(5, [Validators.min(1), Validators.max(10)])
     })]),
     zone: new FormGroup({
-      zoneNom: new FormControl('', [Validators.required]),
-      zoneRegion: new FormControl('', [Validators.required]),
+      name: new FormControl('', [Validators.required]),
+      description: new FormControl('', [Validators.required]),
     })
   });
 
-  get nom() {
-    return this.pokemonForm.controls.nom;
+  get name() {
+    return this.pokemonForm.controls.name;
   }
 
   get description() {
@@ -39,21 +42,21 @@ export class PokemonComponent {
   }
 
   get attaques() {
-    return this.pokemonForm.controls.attaques;
+    return this.pokemonForm.controls.attacks;
   }
 
 
   addAttaque() {
     this.attaques.push(new FormGroup({
-      attaqueNom: new FormControl('', [Validators.required]),
-      attaqueDescription: new FormControl('', [Validators.required]),
-      degats: new FormControl(5, [Validators.min(1), Validators.max(10)])
+      name: new FormControl('', [Validators.required]),
+      power: new FormControl(5, [Validators.min(1), Validators.max(10)])
     }));
   }
 
   savePokemon() {
     if (this.pokemonForm.valid) {
-      console.log('Pokemon enregistrer', this.pokemonForm.value);
+      this.pokemons.push(this.pokemonForm.value as Pokemon)
+      console.log(this.pokemons);
       this.pokemonForm.reset();
     }
   }
