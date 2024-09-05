@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormArray, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Pokemon } from '../utils/types/pokemon.type';
 import { PokemonCardComponent } from '../pokemon-card/pokemon-card.component';
@@ -9,7 +9,7 @@ import { PokemonCardComponent } from '../pokemon-card/pokemon-card.component';
   imports: [
     PokemonCardComponent,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   templateUrl: './pokemon.component.html',
   styleUrl: './pokemon.component.css'
@@ -61,5 +61,8 @@ export class PokemonComponent {
     }
   }
 
+  remove(pokemon: Pokemon) {
+    this.pokemons.splice(this.pokemons.indexOf(pokemon), 1)
+  }
 
 }
