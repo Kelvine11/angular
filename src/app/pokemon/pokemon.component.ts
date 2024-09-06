@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { FormArray, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Pokemon } from '../utils/types/pokemon.type';
 import { PokemonCardComponent } from '../pokemon-card/pokemon-card.component';
+import { PokemonService } from '../utils/services/pokemon.service';
 
 @Component({
   selector: 'app-pokemon',
@@ -18,6 +19,10 @@ export class PokemonComponent {
 
   pokemons: Pokemon[] = [];
   types = ['eau', 'feu', 'vent'];
+
+  constructor(private pokemonService: PokemonService) {
+
+  }
 
   pokemonForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
@@ -63,6 +68,14 @@ export class PokemonComponent {
 
   remove(pokemon: Pokemon) {
     this.pokemons.splice(this.pokemons.indexOf(pokemon), 1)
+  }
+
+  addPokedex(pokemon: Pokemon) {
+    this.pokemonService.addPokemon(pokemon);
+  }
+
+  removePokedex(pokemon: Pokemon) {
+    this.pokemonService.remove(pokemon);
   }
 
 }

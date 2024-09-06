@@ -63,7 +63,8 @@
     </form>
 
     @for (pokemon of pokemons; track pokemon) {
-    <app-pokemon-card [pokemon]="pokemon" (pokemonDelete)="remove(pokemon)"></app-pokemon-card>
+    <app-pokemon-card [pokemon]="pokemon" (pokemonDelete)="remove(pokemon)" (pokemonAddPokedex)="addPokedex(pokemon)"
+        (pokemonRemovePokedex)="removePokedex(pokemon)"></app-pokemon-card>
     }
 
 </section>
